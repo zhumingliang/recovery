@@ -13,12 +13,19 @@ class TokenGet extends BaseValidate
 {
     protected $rule = [
         'phone' => 'require|isMobile',
-        'pwd' => 'require|isNotEmpty'
+        'pwd' => 'require|isNotEmpty',
+        'code'=>'require|isNotEmpty'
     ];
 
     protected $message = [
         'phone' => '获取Token，需要手机号',
-        'passwd' => '获取Token，需要密码'
+        'passwd' => '获取Token，需要密码',
+        'code' => '获取Token，安卓唯一识别码'
+    ];
+
+    protected $scene = [
+        'android' => ['code'],
+        'cms' => ['phone', 'pwd'],
     ];
 
 }

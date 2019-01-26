@@ -17,7 +17,18 @@ Route::get('hello/:name', 'index/hello');
 Route::get('api/:version/index', 'api/:version.Index/index');
 Route::rule('api/:version/index/notify', 'api/:version.Index/index');
 
+Route::get('api/:version/token/admin', 'api/:version.Token/getAdminToken');
+Route::get('api/:version/token/login/out', 'api/:version.Token/loginOut');
+Route::get('api/:version/token/android', 'api/:version.Token/getAndroidToken');
 
-return [
+Route::post('api/:version/card/save', 'api/:version.Card/save');
+Route::post('api/:version/card/handel', 'api/:version.Card/handel');
+Route::post('api/:version/card/update', 'api/:version.Card/update');
+Route::get('api/:version/card/list', 'api/:version.Card/getList');
 
-];
+Route::post('api/:version/system/price/update', 'api/:version.SystemPrice/update');
+Route::get('api/:version/system/price', 'api/:version.SystemPrice/getInfo');
+
+
+
+

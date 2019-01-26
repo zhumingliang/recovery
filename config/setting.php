@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'domain' => 'http://bank.mengant.cn/',
-    'token_expire_in' => 7200,
-    'img_prefix' => 'http://bank.mengant.cn/',
+    'domain' => 'http://recover.mengant.cn/',
+    'token_expire_in' => 172800,
+    'img_prefix' => 'http://recover.mengant.cn/',
 
 ];

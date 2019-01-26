@@ -12,6 +12,7 @@ namespace app\api\controller\v1;
 use app\api\model\AdminT;
 use app\api\model\TestT;
 use app\api\service\AdminToken;
+use app\api\service\AndroidToken;
 use app\api\service\UserInfoService;
 use app\api\service\WxTemplate;
 use app\api\validate\TokenGet;
@@ -27,8 +28,8 @@ use think\facade\Session;
 class Token extends Controller
 {
     /**
-     * @api {GET} /api/v1/token/admin  CMS获取登陆token
-     * @apiGroup  PC
+     * @api {GET} /api/v1/token/admin  1-CMS获取登陆token
+     * @apiGroup  CMS
      * @apiVersion 1.0.1
      * @apiDescription  后台用户登录
      * @apiExample {post}  请求样例:
@@ -52,15 +53,15 @@ class Token extends Controller
      */
     public function getAdminToken($phone, $pwd)
     {
-        (new TokenGet())->goCheck();
+        (new TokenGet())->scene('cms')->goCheck();
         $at = new AdminToken($phone, $pwd);
         $token = $at->get();
         return json($token);
     }
 
     /**
-     * @api {GET} /api/v1/token/loginOut  CMS退出登陆
-     * @apiGroup  PC
+     * @api {GET} /api/v1/token/loginOut  2-CMS退出登陆
+     * @apiGroup  CMS
      * @apiVersion 1.0.1
      * @apiDescription CMS退出当前账号登陆。
      * @apiExample {get}  请求样例:
@@ -77,6 +78,34 @@ class Token extends Controller
         $token = \think\facade\Request::header('token');
         Cache::rm($token);
         return json(new SuccessMessage());
+    }
+
+    /**
+     * @api {GET} /api/v1/token/android  3-安卓获取登陆token
+     * @apiGroup  android
+     * @apiVersion 1.0.1
+     * @apiDescription  安卓设备登录
+     * @apiExample {post}  请求样例:
+     *    {
+     *       "code": "23121"
+     *     }
+     * @apiParam (请求参数说明) {String} code  安卓设备唯一识别号
+     * @apiSuccessExample {json} 返回样例:
+     * {"u_id":1,"phone":"18956225230","token":"bde274895aa23cff9462d5db49690452"}
+     * @apiSuccess (返回参数说明) {int} u_id 用户id
+     * @apiSuccess (返回参数说明) {String} phone 用户手机号
+     * @apiSuccess (返回参数说明) {String} token 口令令牌，每次请求接口需要传入，有效期 2天
+     * @param $code
+     * @return \think\response\Json
+     * @throws \app\lib\exception\ParameterException
+     * @throws \think\Exception
+     */
+    public function getAndroidToken($code)
+    {
+        (new TokenGet())->scene('android')->goCheck();
+        $at = new AndroidToken($code);
+        $token = $at->get();
+        return json($token);
     }
 
 }
