@@ -136,7 +136,7 @@ class Card extends Controller
      * @apiVersion 1.0.1
      * @apiDescription  获取会员卡列表
      * @apiExample {get}  请求样例:
-     * http://mengant.cn/api/v1/card/list
+     * http://recovery.mengant.cn/api/v1/card/list
      * @apiSuccessExample {json} 返回样例:
      * [{"id":1,"min":0,"max":20,"price":2990,"state":1,"create_time":"2019-01-24 11:18:31","update_time":"2019-01-24 11:18:31","type":1}]
      * @apiSuccess (返回参数说明) {int} id    分类id
