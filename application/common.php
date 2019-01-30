@@ -39,3 +39,18 @@ function guid()
     $uuid = substr($charid, 0, 8) . $hyphen . substr($charid, 8, 4) . $hyphen . substr($charid, 12, 4) . $hyphen . substr($charid, 16, 4) . $hyphen . substr($charid, 20, 12);
     return $uuid;
 }
+
+/**
+ * 生成订单号
+ * @return string
+ */
+function makeOrderNo()
+{
+    $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+    $orderSn =
+        $yCode[intval(date('Y')) - 2017] . strtoupper(dechex(date('m'))) . date(
+            'd') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf(
+            '%02d', rand(0, 99));
+    return $orderSn;
+}
+

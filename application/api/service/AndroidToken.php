@@ -9,6 +9,7 @@
 namespace app\api\service;
 
 
+use app\api\model\UserCardT;
 use app\api\model\UserT;
 use app\lib\exception\TokenException;
 use think\Exception;
@@ -29,14 +30,13 @@ class AndroidToken extends Token
     public function get()
     {
         try {
-
             $admin = UserT::where('code', '=', $this->code)
                 ->find();
 
             if (is_null($admin)) {
                 $admin = UserT::create([
                     'code' => $this->code,
-                    'phone'=>''
+                    'phone' => ''
                 ]);
             }
             /**
@@ -47,6 +47,7 @@ class AndroidToken extends Token
              * 缓存数据
              */
             $token = $this->saveToCache('', $cachedValue);
+            $token['card_type'] = (new CardService())->getUserCardInfo($admin->id);
             return $token;
 
         } catch (Exception$e) {

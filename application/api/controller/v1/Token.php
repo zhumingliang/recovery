@@ -91,9 +91,10 @@ class Token extends Controller
      *     }
      * @apiParam (请求参数说明) {String} code  安卓设备唯一识别号
      * @apiSuccessExample {json} 返回样例:
-     * {"u_id":1,"phone":"18956225230","token":"bde274895aa23cff9462d5db49690452"}
+     * {"u_id":2,"phone":null,"code":"1111","token":"3794a6247f8a4fed28239834b39ad4ba","card_type":1}
      * @apiSuccess (返回参数说明) {int} u_id 用户id
      * @apiSuccess (返回参数说明) {String} phone 用户手机号
+     * @apiSuccess (返回参数说明) {int} card_type 会员卡类别：0：无会员；1 |青铜会员；2 | 金铜会员；3 | 黄金会员
      * @apiSuccess (返回参数说明) {String} token 口令令牌，每次请求接口需要传入，有效期 2天
      * @param $code
      * @return \think\response\Json
