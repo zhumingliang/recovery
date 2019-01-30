@@ -13,6 +13,7 @@ use app\api\model\CardRecordT;
 use app\api\model\OrderT;
 use app\api\model\UserCardT;
 use app\api\model\UserCardV;
+use app\api\model\UserT;
 use app\lib\enum\CommonEnum;
 use app\lib\exception\SaveException;
 use app\lib\exception\SuccessMessage;
@@ -29,6 +30,10 @@ class OrderService
     {
         $params['u_id'] = Token::generateToken();
         $params['pay_id'] = CommonEnum::ORDER_STATE_INIT;
+        if (key_exists('phone', $params) && strlen($params['phone'])) {
+            //保存用户手机号
+            UserT::updateUserWithPhone($params['u_id'], $params['phone']);
+        }
         $res = OrderT::create($params);
         if (!$res) {
             throw new SaveException();

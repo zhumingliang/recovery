@@ -13,5 +13,9 @@ use think\Model;
 
 class UserT extends Model
 {
+    public static function updateUserWithPhone($id, $phone)
+    {
+        return self::update(['phone' => $phone], ['id' => $id]);
+    }
 
 }
