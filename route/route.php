@@ -14,8 +14,8 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
-Route::get('api/:version/index', 'api/:version.Index/index');
-Route::rule('api/:version/index/notify', 'api/:version.Index/index');
+/*Route::get('api/:version/index', 'api/:version.Index/index');
+Route::rule('api/:version/index/notify', 'api/:version.Index/index');*/
 
 Route::get('api/:version/token/admin', 'api/:version.Token/getAdminToken');
 Route::get('api/:version/token/login/out', 'api/:version.Token/loginOut');
