@@ -82,7 +82,7 @@ class Token extends Controller
 
     /**
      * @api {GET} /api/v1/token/android  3-安卓获取登陆token
-     * @apiGroup  android
+     * @apiGroup  Android
      * @apiVersion 1.0.1
      * @apiDescription  安卓设备登录
      * @apiExample {post}  请求样例:
