@@ -11,6 +11,7 @@ namespace app\api\service;
 
 use app\api\model\AlipayT;
 use app\api\model\CardOrderT;
+use app\api\model\CardT;
 use app\api\model\LogT;
 use app\api\model\OrderT;
 use app\api\model\UserCardT;
@@ -26,6 +27,7 @@ class PayService
     private $payType = 0;
     private $orderId = 0;
     private $orderNumber = 0;
+    private $payBody = '';
 
     public function __construct($order_type, $order_id)
     {
@@ -71,8 +73,8 @@ class PayService
         $request = new \AlipayTradeAppPayRequest();
 
         $data = [
-            'body' => $this->orderType==CommonEnum::ORDER_RECOVERY?'支付数据恢复订单':'支付会员卡',
-            'subject' => $this->orderType==CommonEnum::ORDER_RECOVERY?'支付数据恢复订单':'支付会员卡',
+            'subject' => $this->orderType == CommonEnum::ORDER_RECOVERY ? '数据恢复-订单支付' : '购买会员卡-订单支付',
+            'body' => $this->orderType == CommonEnum::ORDER_RECOVERY ? '数据恢复数量:'.$this->payBody : '购买会员类别：'.$this->payBody,
             'out_trade_no' => $this->orderNumber,
             'timeout_express' => '90m',
             'total_amount' => $totalPrice / 100,
@@ -141,8 +143,11 @@ class PayService
         if ($this->orderType == CommonEnum::ORDER_CARD) {
             $order = UserCardT::get($this->orderId);
 
+            $card_info = CardT::where('id', $order->c_id)->find();
+            $this->payBody = $card_info->name;
         } elseif ($this->orderType == CommonEnum::ORDER_RECOVERY) {
             $order = OrderT::get($this->orderId);
+            $this->payBody = $order->count;
         }
 
         return $order;
