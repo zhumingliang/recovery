@@ -28,7 +28,7 @@ class OrderService
      */
     public function save($params)
     {
-        $params['u_id'] = Token::generateToken();
+        $params['u_id'] = Token::getCurrentUid();
         $params['pay_id'] = CommonEnum::ORDER_STATE_INIT;
         if (key_exists('phone', $params) && strlen($params['phone'])) {
             //保存用户手机号
