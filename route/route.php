@@ -25,7 +25,7 @@ Route::post('api/:version/card/save', 'api/:version.Card/save');
 Route::post('api/:version/card/order/save', 'api/:version.Card/saveOrder');
 Route::post('api/:version/card/handel', 'api/:version.Card/handel');
 Route::post('api/:version/card/update', 'api/:version.Card/update');
-Route::post('api/:version/card/user/check', 'api/:version.Card/userCheck');
+Route::get('api/:version/card/user/check', 'api/:version.Card/userCheck');
 Route::get('api/:version/card/list', 'api/:version.Card/getList');
 
 Route::post('api/:version/system/price/update', 'api/:version.SystemPrice/update');

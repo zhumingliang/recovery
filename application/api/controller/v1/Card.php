@@ -190,10 +190,12 @@ class Card extends Controller
 
 
     /**
-     * @api {POST} /api/v1/card/user/check  13-检测用户会员卡信息
+     * @api {GET} /api/v1/card/user/check  13-检测用户会员卡信息
      * @apiGroup  Android
      * @apiVersion 1.0.1
-     * @apiDescription  新增用户购买会员支付订单
+     * @apiDescription 检测用户会员卡信息
+     * @apiExample {get}  请求样例:
+     * http://recovery.mengant.cn/api/v1/user/check
      * @apiSuccessExample {json} 返回样例:
      * {"msg":"success","errorCode":0,"data":{"isCard":0,"type":0,"balance":0}}
      * @apiSuccess (返回参数说明) {int} isCard 是否有会员卡 ：0 | 没有；1 | 有；
