@@ -38,7 +38,7 @@ class OrderService
         if (!$res) {
             throw new SaveException();
         }
-        $pay_way = $params['pay_way'];
+        $pay_way = $params['pay_type'];
         if ($pay_way == CommonEnum::PAY_CARD) {
             $this->orderWithCard($params['count'], $res->id);
         }
