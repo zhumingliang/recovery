@@ -14,4 +14,8 @@ use think\Model;
 class SystemPriceT extends Model
 {
 
+    public function getPriceAttr($value, $data)
+    {
+        return $value / 100;
+    }
 }

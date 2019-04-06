@@ -13,5 +13,9 @@ use think\Model;
 
 class CardT extends Model
 {
+    public function getPriceAttr($value, $data)
+    {
+        return $value / 100;
+    }
 
 }

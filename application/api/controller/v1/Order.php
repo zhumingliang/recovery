@@ -24,12 +24,10 @@ class Order extends BaseController
      *    {
      *       "pay_type": 1,
      *       "count": 1000,
-     *       "money": 20,
      *       "phone": 18956225230
      *     }
      * @apiParam (请求参数说明) {int} pay_type  支付类别：1 |微信；2 | 支付宝；3 | 会员卡
      * @apiParam (请求参数说明) {int} count  恢复数量
-     * @apiParam (请求参数说明) {int} money  支付金额
      * @apiParam (请求参数说明) {String} phone  用户手机号
      * @apiSuccessExample {json} 返回样例:
      * {"msg": "ok","error_code": 0,"data":{"id":1}}
@@ -39,6 +37,8 @@ class Order extends BaseController
      * @return \think\response\Json
      * @throws \app\lib\exception\ParameterException
      * @throws \app\lib\exception\SaveException
+     * @throws \app\lib\exception\TokenException
+     * @throws \think\Exception
      */
     public function save()
     {

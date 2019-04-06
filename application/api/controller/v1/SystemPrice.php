@@ -59,9 +59,9 @@ class SystemPrice extends BaseController
      * @apiExample {get}  请求样例:
      * http://recovery.mengant.cn/api/v1/system/price
      * @apiSuccessExample {json} 返回样例:
-     * {"id":1,"price":500}
+     * {"id":1,"price":5}
      * @apiSuccess (返回参数说明) {int} id    设置id
-     * @apiSuccess (返回参数说明) {int} price  会员价格 单位分
+     * @apiSuccess (返回参数说明) {int} price  会员价格 单位元
      * @return \think\response\Json
      * @throws \think\exception\DbException
      */

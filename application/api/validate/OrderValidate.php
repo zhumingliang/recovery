@@ -20,7 +20,7 @@ class OrderValidate extends BaseValidate
 
 
     protected $scene = [
-        'save' => ['pay_type','count', 'money']
+        'save' => ['pay_type','count']
     ];
 
 

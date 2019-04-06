@@ -25,7 +25,7 @@ class CardValidate extends BaseValidate
 
     protected $scene = [
         'save' => ['type', 'price', 'min', 'max'],
-        'order' => ['c_id','pay_type','money'],
+        'order' => ['c_id','pay_type'],
         'update' => ['id', 'type', 'price', 'min', 'max'],
         'id' => ['id'],
     ];

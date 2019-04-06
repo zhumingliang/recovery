@@ -141,7 +141,7 @@ class Card extends Controller
      * [{"id":1,"min":0,"max":20,"price":2990,"state":1,"create_time":"2019-01-24 11:18:31","update_time":"2019-01-24 11:18:31","type":1}]
      * @apiSuccess (返回参数说明) {int} id    分类id
      * @apiSuccess (返回参数说明) {int} type  会员卡类别：1 |青铜会员；2 | 金铜会员；3 | 黄金会员
-     * @apiSuccess (返回参数说明) {int} price  会员价格 单位分
+     * @apiSuccess (返回参数说明) {int} price  会员价格 单位元
      * @apiSuccess (返回参数说明) {int} max   最大恢复数量 ：type=3 时 默认为0 ；0 表示无上限
      * @return \think\response\Json
      * @throws \think\exception\DbException
@@ -162,11 +162,9 @@ class Card extends Controller
      * @apiExample {post}  请求样例:
      *    {
      *       "c_id": 1,
-     *       "money": 500
      *       "pay_type": 1
      *     }
      * @apiParam (请求参数说明) {int} c_id  会员卡id
-     * @apiParam (请求参数说明) {int} money  金额
      * @apiParam (请求参数说明) {int} pay_type  支付类别：1 | 微信支付；2 | 支付宝支付
      *
      * @apiSuccessExample {json} 返回样例:

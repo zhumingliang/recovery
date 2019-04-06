@@ -11,6 +11,7 @@ namespace app\api\service;
 
 use app\api\model\CardRecordT;
 use app\api\model\OrderT;
+use app\api\model\SystemPriceT;
 use app\api\model\UserCardT;
 use app\api\model\UserCardV;
 use app\api\model\UserT;
@@ -21,15 +22,18 @@ use app\lib\exception\SuccessMessage;
 class OrderService
 {
     /**
-     *保存订单
      * @param $params
-     * @return SuccessMessage|array
+     * @return array
      * @throws SaveException
+     * @throws \app\lib\exception\TokenException
+     * @throws \think\Exception
      */
     public function save($params)
     {
+        $pay_way = $params['pay_type'];
         $params['u_id'] = Token::getCurrentUid();
         $params['pay_id'] = CommonEnum::ORDER_STATE_INIT;
+        $params['money'] = $pay_way == CommonEnum::PAY_CARD ? 0 : $this->getOrderMoney($params['count']);
         if (key_exists('phone', $params) && strlen($params['phone'])) {
             //保存用户手机号
             UserT::updateUserWithPhone($params['u_id'], $params['phone']);
@@ -38,7 +42,7 @@ class OrderService
         if (!$res) {
             throw new SaveException();
         }
-        $pay_way = $params['pay_type'];
+
         if ($pay_way == CommonEnum::PAY_CARD) {
             $this->orderWithCard($params['count'], $res->id);
         }
@@ -58,6 +62,14 @@ class OrderService
 
     }
 
+    private function getOrderMoney($count)
+    {
+        $info = SystemPriceT::where('id', '=', 1)
+            ->find();
+        return $info * $count * 100;
+
+
+    }
 
     private function checkCardBalance($u_id, $count, $o_id)
     {

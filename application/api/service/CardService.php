@@ -10,6 +10,7 @@ namespace app\api\service;
 
 
 use app\api\model\CardRecordT;
+use app\api\model\CardT;
 use app\api\model\UserCardT;
 use app\api\model\UserCardV;
 use app\lib\enum\CommonEnum;
@@ -51,12 +52,25 @@ class CardService
     {
         $params['u_id'] = Token::getCurrentUid();
         $params['order_number'] = makeOrderNo();
+        $params['money'] = $this->getCardPrice($params['c_id']);
         $params['pay_id'] = 0;
         $res = UserCardT::create($params);
         if (!$res) {
             throw  new SaveException();
         }
         return $res->id;
+
+    }
+
+    private function getCardPrice($c_id)
+    {
+        $info = CardT::where('id', $c_id)->find();
+        if (!$info) {
+            throw new SaveException([
+                'msg' => '会员卡不存在'
+            ]);
+        }
+        return $info->price * 100;
 
     }
 
