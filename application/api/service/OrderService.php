@@ -66,7 +66,7 @@ class OrderService
     {
         $info = SystemPriceT::where('id', '=', 1)
             ->find();
-        return $info * $count * 100;
+        return ($info->price) * $count * 100;
 
 
     }
