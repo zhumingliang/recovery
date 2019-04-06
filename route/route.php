@@ -32,7 +32,7 @@ Route::post('api/:version/system/price/update', 'api/:version.SystemPrice/update
 Route::get('api/:version/system/price', 'api/:version.SystemPrice/getInfo');
 
 Route::get('api/:version/pay/getPreOrder', 'api/:version.Pay/getPreOrder');
-Route::rule('api/:version/pay/alipay/notify', 'api/:version.Index/index');
+Route::rule('api/:version/pay/alipay/notify', 'api/:version.Pay/aliNotify');
 
 
 
