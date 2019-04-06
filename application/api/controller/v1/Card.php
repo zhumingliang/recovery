@@ -189,4 +189,23 @@ class Card extends Controller
     }
 
 
+    /**
+     * @api {POST} /api/v1/card/user/check  13-检测用户会员卡信息
+     * @apiGroup  Android
+     * @apiVersion 1.0.1
+     * @apiDescription  新增用户购买会员支付订单
+     * @apiSuccessExample {json} 返回样例:
+     * {"msg":"success","errorCode":0,"data":{"isCard":0,"type":0,"balance":0}}
+     * @apiSuccess (返回参数说明) {int} isCard 是否有会员卡 ：0 | 没有；1 | 有；
+     * @apiSuccess (返回参数说明) {int} type 会员卡类别 ：0 | 没有；1 |青铜会员；2 | 金铜会员；3 | 黄金会员
+     * @apiSuccess (返回参数说明) {int} balance 会员卡余额 ：0 | 没有； type=3时，余额是无限的，type=1||2，具体余额根据该字段返回。
+     * @return \think\response\Json
+     */
+    public function userCheck()
+    {
+        $info = (new CardService())->userCheck();
+        return json($info);
+    }
+
+
 }

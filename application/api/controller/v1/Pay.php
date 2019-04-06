@@ -47,7 +47,6 @@ class Pay extends BaseController
     public function aliNotify()
     {
         (new PayService('', ''))->aliNotify();
-        echo "success";
     }
 
     public function wxNotify()

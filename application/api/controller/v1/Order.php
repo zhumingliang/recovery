@@ -32,9 +32,10 @@ class Order extends BaseController
      * @apiParam (请求参数说明) {int} money  支付金额
      * @apiParam (请求参数说明) {String} phone  用户手机号
      * @apiSuccessExample {json} 返回样例:
-     * {"msg": "ok","error_code": 0}
+     * {"msg": "ok","error_code": 0,"data":{"id":1}}
      * @apiSuccess (返回参数说明) {int} error_code 错误代码 0 表示没有错误
      * @apiSuccess (返回参数说明) {String} msg 操作结果描述
+     * @apiSuccess (返回参数说明) {String} data 返回信息
      * @return \think\response\Json
      * @throws \app\lib\exception\ParameterException
      * @throws \app\lib\exception\SaveException

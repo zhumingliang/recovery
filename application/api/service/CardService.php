@@ -11,6 +11,7 @@ namespace app\api\service;
 
 use app\api\model\CardRecordT;
 use app\api\model\UserCardT;
+use app\api\model\UserCardV;
 use app\lib\enum\CommonEnum;
 use app\lib\exception\SaveException;
 
@@ -69,7 +70,7 @@ class CardService
      */
     public function saveRecord($from_id, $u_id, $count, $type)
     {
-        $count = CommonEnum::CARD_REDUCE ? 0 - $count : $count;
+        $count = $type == CommonEnum::CARD_REDUCE ? 0 - $count : $count;
         $data = [
             'u_id' => $u_id,
             'from_id' => $from_id,
@@ -79,6 +80,37 @@ class CardService
         return CardRecordT::create($data);
 
 
+    }
+
+    public function userCheck()
+    {
+        $u_id = Token::getCurrentUid();
+        $card = UserCardV::where('u_id', $u_id)
+            ->where('pay_id', '>', 0)
+            ->order('create_time desc')
+            ->find();
+        if (!$card) {
+            return [
+                'msg' => 'success',
+                'errorCode' => 0,
+                'data' => [
+                    'isCard' => 0,
+                    'type' => 0,
+                    'balance' => 0
+                ]
+            ];
+        }
+        //获取会员余额
+        $balance = CardRecordT::getBalance($u_id);
+        return [
+            'msg' => 'success',
+            'errorCode' => 0,
+            'data' => [
+                'isCard' => 1,
+                'type' => $card->type,
+                'balance' => $balance
+            ]
+        ];
     }
 
 

@@ -40,18 +40,21 @@ class OrderService
         }
         $pay_way = $params['pay_way'];
         if ($pay_way == CommonEnum::PAY_CARD) {
-            return $this->orderWithCard($params['count'], $res->id);
-        } else {
-            //处理金额订单
-            return ['id' => $res->id];
+            $this->orderWithCard($params['count'], $res->id);
         }
+        return [
+            'msg' => 'success',
+            'errorCode' => 0,
+            'data' => [
+                'id' => $res->id
+            ]
+        ];
     }
 
     private function orderWithCard($count, $o_id)
     {
         $u_id = Token::getCurrentUid();
         $this->checkCardBalance($u_id, $count, $o_id);
-        return new SuccessMessage();
 
     }
 
