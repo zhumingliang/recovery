@@ -28,6 +28,8 @@ Route::post('api/:version/card/update', 'api/:version.Card/update');
 Route::get('api/:version/card/user/check', 'api/:version.Card/userCheck');
 Route::get('api/:version/card/list', 'api/:version.Card/getList');
 
+Route::post('api/:version/order/save', 'api/:version.Order/save');
+
 Route::post('api/:version/system/price/update', 'api/:version.SystemPrice/update');
 Route::get('api/:version/system/price', 'api/:version.SystemPrice/getInfo');
 
