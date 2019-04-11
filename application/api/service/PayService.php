@@ -74,7 +74,7 @@ class PayService
 
         $data = [
             'subject' => $this->orderType == CommonEnum::ORDER_RECOVERY ? '数据恢复-订单支付' : '购买会员卡-订单支付',
-            'body' => $this->orderType == CommonEnum::ORDER_RECOVERY ? '数据恢复数量:'.$this->payBody : '购买会员类别：'.$this->payBody,
+            'body' => $this->orderType == CommonEnum::ORDER_RECOVERY ? '数据恢复数量:' . $this->payBody : '购买会员类别：' . $this->payBody,
             'out_trade_no' => $this->orderNumber,
             'timeout_express' => '90m',
             'total_amount' => $totalPrice / 100,
@@ -87,7 +87,7 @@ class PayService
         $request->setBizContent($bizcontent);
         //这里和普通的接口调用不同，使用的是sdkExecute
         return $response = $aop->sdkExecute($request);
-       // return htmlspecialchars($response);
+        //return htmlspecialchars($response);
     }
 
 
@@ -161,6 +161,9 @@ class PayService
     {
         $aop = new \AopClient;
         $aop->alipayrsaPublicKey = config('alipay.alipayrsaPublicKey');
+        LogT::create([
+            'msg' => json_encode($_POST)
+        ]);
         $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");  //验证签名
         if ($flag) {
             //校验通知数据的正确性
