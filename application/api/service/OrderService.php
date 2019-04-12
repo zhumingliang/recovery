@@ -32,6 +32,7 @@ class OrderService
     {
         $pay_way = $params['pay_type'];
         $params['u_id'] = Token::getCurrentUid();
+        $params['order_number'] = makeOrderNo();
         $params['pay_id'] = CommonEnum::ORDER_STATE_INIT;
         $params['money'] = $pay_way == CommonEnum::PAY_CARD ? 0 : $this->getOrderMoney($params['count']);
         if (key_exists('phone', $params) && strlen($params['phone'])) {

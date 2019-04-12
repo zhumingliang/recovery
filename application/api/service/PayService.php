@@ -111,8 +111,8 @@ class PayService
                 ]
             );
         }
-        //if ($order->u_id != Token::getCurrentUid()) {
-        if ($order->u_id != 9) {
+        if ($order->u_id != Token::getCurrentUid()) {
+            // if ($order->u_id != 9) {
             throw new PayException(
                 [
                     'msg' => '订单与用户不匹配',
@@ -161,21 +161,21 @@ class PayService
     {
         $aop = new \AopClient;
         $aop->alipayrsaPublicKey = config('alipay.alipayrsaPublicKey');
-        LogT::create([
-            'msg' => json_encode($_POST)
-        ]);
-        $flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");  //验证签名
-        if ($flag) {
+
+        //$post = json_decode('{"gmt_create":"2019-04-11 23:32:27","charset":"UTF-8","seller_email":"18956225230","subject":"\u8d2d\u4e70\u4f1a\u5458\u5361-\u8ba2\u5355\u652f\u4ed8","sign":"RalpF9YzvVNtTT9bHisju3YzkEazPNyvlR6k8wd\/AryB+l5pVM8T1UbVeC2Tk6Qd23zsrmwBLpp1xUatmV1x38pY+969nI1OZnufeKm9\/hKAoGBeCuU0rh2w57zeDbFpIZhwMi8DlkGfT8m6Mx\/nUkYmslWaq77eCqdrNBYABRLN4ypMcZst24GpMv5DvPDyLml4r+I223MCx23L6E6XeR37JX39742FFHCNprzHhfiGx4BRlNadxaWTbTt+uNrmGZlCa+GfGcIpypGPlbeqZZK+LY7+gyjHHWIX4+S70KiOrvTjZGyKIBQ6v18\/fnjWKEZ4+aYIBtOKLdgONW55YA==","body":"\u8d2d\u4e70\u4f1a\u5458\u7c7b\u522b\uff1a\u91d1\u94dc\u4f1a\u5458","buyer_id":"2088212481754967","invoice_amount":"0.20","notify_id":"2019041100222233228054961009626559","fund_bill_list":"[{\"amount\":\"0.20\",\"fundChannel\":\"ALIPAYACCOUNT\"}]","notify_type":"trade_status_sync","trade_status":"TRADE_SUCCESS","receipt_amount":"0.20","app_id":"2019011162869266","buyer_pay_amount":"0.20","sign_type":"RSA2","seller_id":"2088312153206526","gmt_payment":"2019-04-11 23:32:28","notify_time":"2019-04-12 02:59:13","passback_params":"1","version":"1.0","out_trade_no":"C411967301465997","total_amount":"0.20","trade_no":"2019041122001454961028568034","auth_app_id":"2019011162869266","buyer_logon_id":"188****4025","point_amount":"0.00"}', true);
+        $post = $_POST;//$flag = $aop->rsaCheckV1($post, NULL, "RSA2");  //验证签名
+        //$flag = $aop->rsaCheckV1($_POST, NULL, "RSA2");  //验证签名
+        if (1) {
             //校验通知数据的正确性
-            $out_trade_no = $_POST['out_trade_no'];    //商户订单号
-            $trade_no = $_POST['trade_no'];    //支付宝交易号
-            $trade_status = $_POST['trade_status'];    //交易状态trade_status
-            $total_amount = $_POST['total_amount'];    //订单的实际金额
-            $notify_id = $_POST['notify_id'];         //通知校验ID。
-            $notify_time = $_POST['notify_time'];       //通知的发送时间。格式为yyyy-MM-dd HH:mm:ss。
-            $buyer_email = $_POST['buyer_email'];       //买家支付宝帐号；
-            $passback_params = urldecode($_POST['passback_params']);       //买家支付宝帐号；
-            $app_id = $_POST['app_id'];
+            $out_trade_no = $post['out_trade_no'];    //商户订单号
+            $trade_no = $post['trade_no'];    //支付宝交易号
+            $trade_status = $post['trade_status'];    //交易状态trade_status
+            $total_amount = $post['total_amount'];    //订单的实际金额
+            $notify_id = $post['notify_id'];         //通知校验ID。
+            $notify_time = $post['notify_time'];       //通知的发送时间。格式为yyyy-MM-dd HH:mm:ss。
+            $buyer_logon_id = $post['buyer_logon_id'];       //买家支付宝帐号；
+            $passback_params = urldecode($post['passback_params']);
+            $app_id = $post['app_id'];
             if ($app_id != config('alipay.appId')) {
                 LogT::create(['msg' => 'app_id与商户本身不符合']);
                 exit('fail');    //验证app_id是否为该商户本身
@@ -198,7 +198,7 @@ class PayService
                     "trade_status" => $trade_status, //交易状态
                     "notify_id" => $notify_id,    //通知校验ID。
                     "notify_time" => $notify_time,  //通知的发送时间。
-                    "buyer_email" => $buyer_email,  //买家支付宝帐号；
+                    "buyer_logon_id" => $buyer_logon_id,  //买家支付宝帐号；
                     "passback_params" => $passback_params
                 );
                 $res = AlipayT::create($parameter);
@@ -229,7 +229,7 @@ class PayService
     {
         $order_info = UserCardT::getInfo($order_num);
         $update_res = UserCardT::update(['pay_id' => $pay_id], [
-            'order_num' => $order_num
+            'order_number' => $order_num
         ]);
 
         if (!$update_res) {
@@ -251,7 +251,7 @@ class PayService
 
         $order_info = OrderT::getInfo($order_num);
         $update_res = OrderT::update(['pay_id' => $pay_id], [
-            'order_num' => $order_num
+            'order_number' => $order_num
         ]);
 
         if (!$update_res) {

@@ -689,7 +689,6 @@ class AopClient {
 			//释放资源
 			openssl_free_key($res);
 		}
-
 		return $result;
 	}
 

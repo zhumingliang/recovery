@@ -21,7 +21,7 @@ class UserCardT extends Model
 
     public static function getInfo($order_num)
     {
-        $info = self::where('order_num', $order_num)->with('card')->find();
+        $info = self::where('order_number', $order_num)->with('card')->find();
         return $info;
 
     }
