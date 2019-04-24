@@ -46,7 +46,7 @@ class ExceptionHandler extends Handle
         $result = [
             'msg' => $this->msg,
             'errorCode' => $this->errorCode,
-            'data' => array()
+            'data' => null
         ];
 
         return json($result, $this->code);
