@@ -11,7 +11,7 @@ namespace app\lib\exception;
 
 class PayException extends BaseException
 {
-    public $code = 401;
+    public $code = 200;
     public $msg = '支付订单类别异常';
     public $errorCode = 150001;
 

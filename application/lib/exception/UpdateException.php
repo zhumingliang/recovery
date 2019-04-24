@@ -11,7 +11,7 @@ namespace app\lib\exception;
 
 class UpdateException extends BaseException
 {
-    public $code = 401;
+    public $code = 200;
     public $msg = '修改操作失败';
     public $errorCode = 50001;
 
