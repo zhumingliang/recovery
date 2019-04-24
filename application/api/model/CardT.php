@@ -18,4 +18,9 @@ class CardT extends Model
         return $value / 100;
     }
 
+    public function getMaxAttr($value, $data)
+    {
+        return $value == 0 ? '无限' : $value;
+    }
+
 }
